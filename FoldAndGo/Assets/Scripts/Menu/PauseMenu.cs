@@ -49,13 +49,13 @@ public class PauseMenu : MonoBehaviour
     public void Pause(){
         pauseMenuUI.SetActive(true);
         menuIconUI.SetActive(false);
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
     }
 
     public void Resume(){
         pauseMenuUI.SetActive(false);
         menuIconUI.SetActive(true);
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
     }
 
 
