@@ -21,6 +21,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vsconfig
 
 # Gradle cache directory
 .gradle/
@@ -69,3 +70,5 @@ crashlytics-build.properties
 Icon?
 ehthumbs.db
 Thumbs.db
+FoldAndGo/UserSettings/EditorUserSettings.asset
+FoldAndGo/UserSettings/EditorUserSettings.asset
