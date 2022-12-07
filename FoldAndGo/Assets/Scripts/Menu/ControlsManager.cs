@@ -34,17 +34,19 @@ public class ControlsManager : MonoBehaviour {
     }
 
     public void PlayNextStep() {
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         paperMesh.nextStep();
-        
         finishButton.gameObject.SetActive(true);
     }
 
     public void PlayPreviousStep() {
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         paperMesh.previousStep();
         finishButton.gameObject.SetActive(false);
     }
 
     public void EndMenu(){
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         gameManager.SetGameState(GameState.END_MENU);
         Debug.Log(gameManager.gameState);
         SceneManager.LoadScene("EndMenu");

@@ -9,12 +9,6 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager instance;
 
-    private const string BACKGROUND_MUSIC = "BackgroundMusic";
-    public const string  MISSILE_ALARM    = "Alarm";
-    public const string  MISSILE_BOOST    = "MissileBoost";
-    public const string  BUTTON_HOVER     = "ButtonHover";
-    public const string  BUTTON_CLICK     = "ButtonClick";
-
     private void Awake() {
         if(instance != null) {
             Destroy(gameObject);
@@ -32,10 +26,6 @@ public class AudioManager : MonoBehaviour {
             sound.source.pitch  = sound.pitch;
             sound.source.loop   = sound.loop;
         }
-    }
-
-    private void Start() {
-        playSound(BACKGROUND_MUSIC);
     }
 
     public void playSound(string name) {

@@ -33,24 +33,29 @@ public class MainMenu : MonoBehaviour
 
         Button leaveBtn = leaveButton.GetComponent<Button>();
 		leaveBtn.onClick.AddListener(QuitGame);
+
+        FindObjectOfType<AudioManager>().playSound("MainBackground");
 	}
 
     public void PlayGame ()
     {
         gameManager.SetGameState(GameState.PLAYER_SELECTION);
         Debug.Log(gameManager.gameState);
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
+        FindObjectOfType<AudioManager>().stopSound("MainBackground");
         SceneManager.LoadScene("PlayerSelection");
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void OptionsMenu(){
         gameManager.SetGameState(GameState.OPTIONS_MENU);
         Debug.Log(gameManager.gameState);
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("OptionsMenu");
     }
 
     public void QuitGame() 
     {
+        FindObjectOfType<AudioManager>().playSound("ExitBtn");
         Application.Quit();
     }
 }

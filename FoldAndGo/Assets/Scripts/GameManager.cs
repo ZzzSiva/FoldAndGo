@@ -7,19 +7,20 @@ public enum GameState { MAIN_MENU, OPTIONS_MENU, PLAYER_SELECTION, GAME, END_MEN
 
 public delegate void OnStateChangeHandler();
 
-public class GameManager: Object {
-    protected GameManager() {}
-    private static GameManager instance = null;
+public class GameManager : MonoBehaviour {
+    
+    public static GameManager Instance ;
     public event OnStateChangeHandler OnStateChange;
     public  GameState gameState { get; private set; }
+    protected GameManager() {}
 
-    public static GameManager Instance{
-        get {
-            if (GameManager.instance == null){
-                GameManager.instance = new GameManager();
-                // DontDestroyOnLoad(GameManager.instance);
-            }
-            return GameManager.instance;
+    private void Awake() {
+       if(Instance != null) {
+            Destroy(gameObject);
+            return;
+        } else {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -29,6 +30,6 @@ public class GameManager: Object {
     }
 
     public void OnApplicationQuit(){
-        GameManager.instance = null;
+        GameManager.Instance = null;
     }
 }

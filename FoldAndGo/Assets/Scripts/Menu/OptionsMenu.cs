@@ -60,11 +60,13 @@ public class OptionsMenu : MonoBehaviour
     public void BackMainMenu(){
         gameManager.SetGameState(GameState.MAIN_MENU);
         Debug.Log(gameManager.gameState);
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("MainMenu");
     }
 
     public void Quit(){
         Debug.Log("Quit!");
+        FindObjectOfType<AudioManager>().playSound("ExitBtn");
         Application.Quit();
     }
 }
