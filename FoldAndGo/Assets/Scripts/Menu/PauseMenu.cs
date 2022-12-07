@@ -49,23 +49,25 @@ public class PauseMenu : MonoBehaviour
     public void Pause(){
         pauseMenuUI.SetActive(true);
         menuIconUI.SetActive(false);
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
     }
 
     public void Resume(){
         pauseMenuUI.SetActive(false);
         menuIconUI.SetActive(true);
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
     }
 
 
     public void BackMainMenu(){
+        Time.timeScale = 1f;
         gameManager.SetGameState(GameState.MAIN_MENU);
         Debug.Log(gameManager.gameState);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void OrigamiSelection(){
+        Time.timeScale = 1f;
         gameManager.SetGameState(GameState.PLAYER_SELECTION);
         Debug.Log(gameManager.gameState);
         SceneManager.LoadScene("PlayerSelection");
