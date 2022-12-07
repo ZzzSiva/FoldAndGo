@@ -17,9 +17,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject menuIconUI;
 
-    void Awake () {
+    void Awake() {
         gameManager = GameManager.Instance;
-        gameManager.OnStateChange += HandleOnStateChange;
+        //gameManager.OnStateChange += HandleOnStateChange;
     }
 
     public void HandleOnStateChange ()

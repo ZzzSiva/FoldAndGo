@@ -18,7 +18,7 @@ public class ControlsManager : MonoBehaviour {
 
     void Awake() {
         gameManager = GameManager.Instance;
-        gameManager.OnStateChange += HandleOnStateChange;
+        //gameManager.OnStateChange += HandleOnStateChange;
 
         paperMesh = paper.GetComponent<PaperMesh6VDog>();
     }

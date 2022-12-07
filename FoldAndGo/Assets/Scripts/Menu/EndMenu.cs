@@ -13,7 +13,7 @@ public class EndMenu : MonoBehaviour
 
     void Awake () {
         gameManager = GameManager.Instance;
-        gameManager.OnStateChange += HandleOnStateChange;
+        //gameManager.OnStateChange += HandleOnStateChange;
     }
 
     public void HandleOnStateChange ()
