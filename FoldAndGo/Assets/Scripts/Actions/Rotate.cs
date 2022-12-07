@@ -6,7 +6,7 @@ using UnityEngine;
 public class Rotate : MonoBehaviour
 {
    
-    public float rotationSpeed = 3.0f; // Rotation speed
+    public float rotationSpeed = 1.0f; // Rotation speed
 
     void Update() {
         // Get the current finger position
@@ -16,7 +16,7 @@ public class Rotate : MonoBehaviour
         Vector2 previousFingerPos = Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition;
 
         // Calculate the difference in position
-        Vector2 fingerDelta = fingerPos - previousFingerPos;
+        Vector2 fingerDelta = previousFingerPos - fingerPos;
 
         // Rotate the object based on the finger delta and the rotation speed
         transform.Rotate(Vector3.up, fingerDelta.x * rotationSpeed);
