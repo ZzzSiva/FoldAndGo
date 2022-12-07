@@ -1136,7 +1136,7 @@ MonoBehaviour:
   camera: {fileID: 963194227}
   minZoom: 10
   maxZoom: 100
-  zoomSpeed: 4
+  zoomSpeed: 2
 --- !u!114 &1464053909
 MonoBehaviour:
   m_ObjectHideFlags: 0
