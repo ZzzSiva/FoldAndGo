@@ -21,7 +21,7 @@ public class PaperMesh6VDog : MonoBehaviour {
 
     const float ROTATION = 180f;
 
-    bool isStepInAnimation = false;
+    public bool isStepInAnimation = false;
 
     private void Awake() {
         mesh = GetComponent<MeshFilter>().mesh;
@@ -314,6 +314,30 @@ public class PaperMesh6VDog : MonoBehaviour {
 
             vertices[step.foldingPointsIndex[i]] =
                 Quaternion.AngleAxis(-step.foldingRotation, axis) * (vertices[step.foldingPointsIndex[i]] - pivot) + pivot;
+        }
+    }
+
+    public void nextStep() {
+        Debug.Log("nextStep STEP = " + currentStepIndex);
+        Debug.Log("nextStep stepsList.Count = " + stepsList.Count);
+        Debug.Log("nextStep isStepInAnimation = " + isStepInAnimation);
+
+        if(currentStepIndex < (stepsList.Count - 1) && !isStepInAnimation) {
+            if(currentStepIndex >= -1) {
+                currentStepIndex++;
+                StartCoroutine(doAnimatedFold(stepsList[currentStepIndex], animationDuration));
+            }
+        }
+    }
+
+    public void previousStep() {
+        Debug.Log("previousStep STEP = " + currentStepIndex);
+        Debug.Log("nextStep stepsList.Count = " + stepsList.Count);
+        Debug.Log("nextStep isStepInAnimation = " + isStepInAnimation);
+
+        if(currentStepIndex >= 0 && !isStepInAnimation) {
+            StartCoroutine(doAnimatedFold(stepsList[currentStepIndex], animationDuration, true));
+            currentStepIndex--;
         }
     }
 

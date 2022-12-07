@@ -7,21 +7,36 @@ public enum GameState { MAIN_MENU, OPTIONS_MENU, PLAYER_SELECTION, GAME, END_MEN
 
 public delegate void OnStateChangeHandler();
 
-public class GameManager: Object {
-    protected GameManager() {}
+public class GameManager : MonoBehaviour {
+    
     private static GameManager instance = null;
     public event OnStateChangeHandler OnStateChange;
     public  GameState gameState { get; private set; }
+    protected GameManager() {
+        instance = this;
+    }
 
     public static GameManager Instance{
         get {
-            if (GameManager.instance == null){
-                GameManager.instance = new GameManager();
-                // DontDestroyOnLoad(GameManager.instance);
+            if(instance != null) {
+                Destroy(gameObject);
+                return;
+            } else {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
             }
-            return GameManager.instance;
         }
     }
+
+    // private void Awake() {
+    //     if(instance != null) {
+    //         Destroy(gameObject);
+    //         return;
+    //     } else {
+    //         instance = this;
+    //         DontDestroyOnLoad(gameObject);
+    //     }
+    // }
 
     public void SetGameState(GameState state){
         this.gameState = state;

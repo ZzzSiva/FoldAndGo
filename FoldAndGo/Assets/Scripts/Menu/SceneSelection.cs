@@ -41,17 +41,19 @@ public class SceneSelection : MonoBehaviour
     {
         gameManager.SetGameState(GameState.GAME);
         Debug.Log(gameManager.gameState);
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("Game");
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void BackGame ()
     {
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void QuitGame() 
     {
+        FindObjectOfType<AudioManager>().playSound("ExitBtn");
         Application.Quit();
     }
 }
