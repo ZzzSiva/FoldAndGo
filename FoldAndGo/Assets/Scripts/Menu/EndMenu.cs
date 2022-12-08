@@ -4,21 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EndMenu : MonoBehaviour
-{
-    GameManager gameManager;
+public class EndMenu : MonoBehaviour {
+
     public Button mainMenuButton;
     public Button playAgainButton;
     public Button leaveButton;
 
     void Awake () {
-        gameManager = GameManager.Instance;
-        //gameManager.OnStateChange += HandleOnStateChange;
+        GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    public void HandleOnStateChange ()
-    {
-        Debug.Log("OnStateChange!");
+    private void HandleOnStateChange(GameState state) {
+        Debug.Log("OnStateChange : " + state);
     }
 
     void Start () {
@@ -33,15 +30,15 @@ public class EndMenu : MonoBehaviour
 	}
 
     public void BackMainMenu(){
-        gameManager.SetGameState(GameState.MAIN_MENU);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.MAIN_MENU);
+        Debug.Log(GameManager.Instance.gameState);
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("MainMenu");
     }
 
     public void PlayAgain(){
-        gameManager.SetGameState(GameState.PLAYER_SELECTION);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
+        Debug.Log(GameManager.Instance.gameState);
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("PlayerSelection");
     }

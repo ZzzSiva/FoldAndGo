@@ -5,23 +5,18 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class SceneSelection : MonoBehaviour
-{
+public class SceneSelection : MonoBehaviour {
 
-    GameManager gameManager;
     public Button levelOneButton;
     public Button levelTwoButton;
     public Button levelThreeButton;
 
-
     void Awake () {
-        gameManager = GameManager.Instance;
-        //gameManager.OnStateChange += HandleOnStateChange;
+        GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    public void HandleOnStateChange ()
-    {
-        Debug.Log("OnStateChange!");
+    private void HandleOnStateChange(GameState state) {
+        Debug.Log("OnStateChange : " + state);
     }
 
     void Start () {
@@ -40,8 +35,8 @@ public class SceneSelection : MonoBehaviour
 
     public void Play ()
     {
-        gameManager.SetGameState(GameState.GAME);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.GAME);
+        Debug.Log(GameManager.Instance.gameState);
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         FindObjectOfType<AudioManager>().stopSound("SelectionBackground");
         SceneManager.LoadScene("Game");

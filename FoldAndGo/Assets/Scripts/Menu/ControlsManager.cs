@@ -6,19 +6,15 @@ using UnityEngine.UI;
 
 public class ControlsManager : MonoBehaviour {
 
-    GameManager gameManager;
     private PaperMesh6VDog paperMesh;
-    
 
     [SerializeField]
     public GameObject paper;
 
     public Button finishButton;
 
-
     void Awake() {
-        gameManager = GameManager.Instance;
-        //gameManager.OnStateChange += HandleOnStateChange;
+        GameManager.OnGameStateChange += HandleOnStateChange;
 
         paperMesh = paper.GetComponent<PaperMesh6VDog>();
     }
@@ -29,8 +25,8 @@ public class ControlsManager : MonoBehaviour {
         finishBtn.gameObject.SetActive(false);
 	}
 
-    public void HandleOnStateChange() {
-        Debug.Log("OnStateChange!");
+    private void HandleOnStateChange(GameState state) {
+        Debug.Log("OnStateChange : " + state);
     }
 
     public void PlayNextStep() {
@@ -47,8 +43,8 @@ public class ControlsManager : MonoBehaviour {
 
     public void EndMenu(){
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        gameManager.SetGameState(GameState.END_MENU);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.END_MENU);
+        Debug.Log(GameManager.Instance.gameState);
         SceneManager.LoadScene("EndMenu");
     }
 }

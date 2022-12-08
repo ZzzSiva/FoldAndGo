@@ -1,17 +1,29 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Game States
 // for now we are only using these two
-public enum GameState { MAIN_MENU, OPTIONS_MENU, PLAYER_SELECTION, GAME, END_MENU }
+
+public enum GameState {
+    MAIN_MENU,
+    OPTIONS_MENU,
+    PLAYER_SELECTION,
+    GAME,
+    END_MENU
+}
 
 public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
-    
-    public static GameManager Instance ;
-    public event OnStateChangeHandler OnStateChange;
-    public  GameState gameState { get; private set; }
+
+    public static event Action<GameState> OnGameStateChange;
+
+    public static GameManager Instance;
+
+    public GameState gameState;
+
     protected GameManager() {}
 
     private void Awake() {
@@ -26,7 +38,8 @@ public class GameManager : MonoBehaviour {
 
     public void SetGameState(GameState state){
         this.gameState = state;
-        OnStateChange();
+
+        OnGameStateChange?.Invoke(this.gameState);
     }
 
     public void OnApplicationQuit(){

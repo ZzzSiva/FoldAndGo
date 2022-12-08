@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class OptionsMenu : MonoBehaviour
-{
-    GameManager gameManager;
+public class OptionsMenu : MonoBehaviour {
 
     public Button leaveButton;
     public Button backButton;
@@ -15,13 +13,11 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider volumeSlider;
 
     void Awake () {
-        gameManager = GameManager.Instance;
-        gameManager.OnStateChange += HandleOnStateChange;
+        GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    public void HandleOnStateChange ()
-    {
-        Debug.Log("OnStateChange!");
+    private void HandleOnStateChange(GameState state) {
+        Debug.Log("OnStateChange : " + state);
     }
 
     // Start is called before the first frame update
@@ -58,8 +54,8 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void BackMainMenu(){
-        gameManager.SetGameState(GameState.MAIN_MENU);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.MAIN_MENU);
+        Debug.Log(GameManager.Instance.gameState);
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("MainMenu");
     }

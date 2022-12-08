@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PauseMenu : MonoBehaviour
-{
-    GameManager gameManager;
+public class PauseMenu : MonoBehaviour {
 
     public Button pauseButton;
     public Button mainMenuButton;
@@ -18,13 +16,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject menuIconUI;
 
     void Awake() {
-        gameManager = GameManager.Instance;
-        //gameManager.OnStateChange += HandleOnStateChange;
+        GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    public void HandleOnStateChange ()
-    {
-        Debug.Log("OnStateChange!");
+    private void HandleOnStateChange(GameState state) {
+        Debug.Log("OnStateChange : " + state);
     }
 
     // Start is called before the first frame update
@@ -64,16 +60,16 @@ public class PauseMenu : MonoBehaviour
     public void BackMainMenu(){
         Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        gameManager.SetGameState(GameState.MAIN_MENU);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.MAIN_MENU);
+        Debug.Log(GameManager.Instance.gameState);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void OrigamiSelection(){
         Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        gameManager.SetGameState(GameState.PLAYER_SELECTION);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
+        Debug.Log(GameManager.Instance.gameState);
         SceneManager.LoadScene("PlayerSelection");
     }
 

@@ -5,23 +5,18 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class MainMenu : MonoBehaviour
-{
+public class MainMenu : MonoBehaviour {
 
-    GameManager gameManager;
     public Button playButton;
     public Button optionsButton;
     public Button leaveButton;
 
-
     void Awake () {
-        gameManager = GameManager.Instance;
-        //gameManager.OnStateChange += HandleOnStateChange;
+        GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    public void HandleOnStateChange ()
-    {
-        Debug.Log("OnStateChange!");
+    private void HandleOnStateChange(GameState state) {
+        Debug.Log("OnStateChange : " + state);
     }
 
     void Start () {
@@ -39,16 +34,16 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame ()
     {
-        gameManager.SetGameState(GameState.PLAYER_SELECTION);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
+        Debug.Log(GameManager.Instance.gameState);
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         FindObjectOfType<AudioManager>().stopSound("MainBackground");
         SceneManager.LoadScene("PlayerSelection");
     }
 
     public void OptionsMenu(){
-        gameManager.SetGameState(GameState.OPTIONS_MENU);
-        Debug.Log(gameManager.gameState);
+        GameManager.Instance.SetGameState(GameState.OPTIONS_MENU);
+        Debug.Log(GameManager.Instance.gameState);
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("OptionsMenu");
     }
