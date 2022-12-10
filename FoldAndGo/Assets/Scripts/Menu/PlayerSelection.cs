@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class SceneSelection : MonoBehaviour {
+public class PlayerSelection : MonoBehaviour{
 
     public Button levelOneButton;
     public Button levelTwoButton;
@@ -45,6 +45,7 @@ public class SceneSelection : MonoBehaviour {
     public void BackGame ()
     {
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
+        FindObjectOfType<AudioManager>().stopSound("SelectionBackground");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 

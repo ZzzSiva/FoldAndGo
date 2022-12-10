@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -567,7 +567,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1355487965}
-        m_TargetAssemblyTypeName: SceneSelection, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
         m_MethodName: BackGame
         m_Mode: 1
         m_Arguments:
@@ -746,6 +746,18 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: GameBackground
+    clip: {fileID: 8300000, guid: abcec18afa95de34abbb80e816d16414, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Win
+    clip: {fileID: 8300000, guid: 65960153d29a83e499ac64e01f086c48, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
 --- !u!4 &741428437
 Transform:
   m_ObjectHideFlags: 0
@@ -1045,7 +1057,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018385811}
-  - component: {fileID: 1018385812}
   m_Layer: 5
   m_Name: Levels
   m_TagString: Untagged
@@ -1076,21 +1087,6 @@ RectTransform:
   m_AnchoredPosition: {x: -15.549988, y: 96.25}
   m_SizeDelta: {x: 1132, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1018385812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018385810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea0decd0d772b0b4a805d749023b7658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelOneButton: {fileID: 88082958}
-  levelTwoButton: {fileID: 13857170}
-  levelThreeButton: {fileID: 1230249210}
 --- !u!1 &1230249208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,7 +1468,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1355487965}
-        m_TargetAssemblyTypeName: SceneSelection, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
