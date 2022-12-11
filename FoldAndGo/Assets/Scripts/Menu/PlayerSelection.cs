@@ -10,6 +10,9 @@ public class PlayerSelection : MonoBehaviour{
     public Button levelOneButton;
     public Button levelTwoButton;
     public Button levelThreeButton;
+    public Button continueButton;
+
+    public GameObject popupWindow;
 
     void Awake () {
         GameManager.OnGameStateChange += HandleOnStateChange;
@@ -27,7 +30,11 @@ public class PlayerSelection : MonoBehaviour{
 		levelTwo.onClick.AddListener(Play);
 
         Button levelThree = levelThreeButton.GetComponent<Button>();
-		levelThree.onClick.AddListener(Play);
+		levelThree.onClick.AddListener(Popup);
+
+        Button continueBtn = continueButton.GetComponent<Button>();
+		continueBtn.onClick.AddListener(PopupClicked);
+
         FindObjectOfType<AudioManager>().playSound("SelectionBackground");
 	}
 
@@ -40,6 +47,16 @@ public class PlayerSelection : MonoBehaviour{
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         FindObjectOfType<AudioManager>().stopSound("SelectionBackground");
         SceneManager.LoadScene("Game");
+    }
+
+    public void Popup (){
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
+        popupWindow.SetActive(true);
+    }
+
+    public void PopupClicked (){
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
+        popupWindow.SetActive(false);
     }
 
     public void BackGame ()
