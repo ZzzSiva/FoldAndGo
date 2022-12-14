@@ -21,6 +21,7 @@ public class ControlsManager : MonoBehaviour {
 		Button finishBtn = finishButton.GetComponent<Button>();
 		finishBtn.onClick.AddListener(EndMenu);
         finishBtn.gameObject.SetActive(false);
+        FindObjectOfType<AudioManager>().playSound("GameBackground");
 	}
 
     private void HandleOnStateChange(GameState state) {
@@ -73,6 +74,7 @@ public class ControlsManager : MonoBehaviour {
     }
 
     public void EndMenu(){
+        FindObjectOfType<AudioManager>().stopSound("GameBackground");
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         GameManager.Instance.SetGameState(GameState.END_MENU);
         Debug.Log(GameManager.Instance.gameState);
