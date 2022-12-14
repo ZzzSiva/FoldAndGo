@@ -1089,8 +1089,8 @@ GameObject:
   - component: {fileID: 1464053906}
   - component: {fileID: 1464053905}
   - component: {fileID: 1464053904}
-  - component: {fileID: 1464053908}
   - component: {fileID: 1464053909}
+  - component: {fileID: 1464053910}
   m_Layer: 0
   m_Name: Paper
   m_TagString: Untagged
@@ -1202,22 +1202,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464053902}
   m_Mesh: {fileID: 0}
---- !u!114 &1464053908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1464053902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba8ccb057b201847ab0fe51e608972b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 963194227}
-  minZoom: 10
-  maxZoom: 100
-  zoomSpeed: 2
 --- !u!114 &1464053909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,6 +1215,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 1
+--- !u!114 &1464053910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464053902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45338910f5cb6b243902c04d0e380a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToZoom: {fileID: 0}
+  minZoom: 10
+  maxZoom: 100
+  zoomSpeed: 10
 --- !u!1 &1490114574
 GameObject:
   m_ObjectHideFlags: 0
