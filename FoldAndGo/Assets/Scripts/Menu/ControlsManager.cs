@@ -8,42 +8,71 @@ public class ControlsManager : MonoBehaviour {
 
     private PaperMesh6VDog paperMesh;
 
-    [SerializeField]
-    public GameObject paper;
-
     public Button finishButton;
 
     void Awake() {
         GameManager.OnGameStateChange += HandleOnStateChange;
+        tryGettingPaper();
 
-        paperMesh = paper.GetComponent<PaperMesh6VDog>();
+
     }
 
     void Start () {
 		Button finishBtn = finishButton.GetComponent<Button>();
 		finishBtn.onClick.AddListener(EndMenu);
         finishBtn.gameObject.SetActive(false);
-        FindObjectOfType<AudioManager>().playSound("GameBackground");
 	}
 
     private void HandleOnStateChange(GameState state) {
         Debug.Log("OnStateChange : " + state);
     }
 
+    private void tryGettingPaper()
+    {
+        if (paperMesh == null)
+        {
+            GameObject paper = GameObject.FindGameObjectWithTag("origami");
+
+            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER = " + paper);
+
+
+            if (paper != null)
+            {
+                paperMesh = paper.GetComponent<PaperMesh6VDog>();
+            }
+            else
+            {
+                paperMesh = null;
+            }
+            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER MESH = " + paperMesh);
+        }
+    }
+
     public void PlayNextStep() {
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        paperMesh.nextStep();
-        finishButton.gameObject.SetActive(true);
+        tryGettingPaper();
+
+        if (paperMesh != null)
+        {
+            FindObjectOfType<AudioManager>().playSound("MenuBtn");
+            paperMesh.nextStep();
+            finishButton.gameObject.SetActive(true);
+        }
+        
     }
 
     public void PlayPreviousStep() {
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        paperMesh.previousStep();
-        finishButton.gameObject.SetActive(false);
+        tryGettingPaper();
+
+        if (paperMesh != null)
+        {
+            FindObjectOfType<AudioManager>().playSound("MenuBtn");
+            paperMesh.previousStep();
+            finishButton.gameObject.SetActive(false);
+        }
+        
     }
 
     public void EndMenu(){
-        FindObjectOfType<AudioManager>().stopSound("GameBackground");
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         GameManager.Instance.SetGameState(GameState.END_MENU);
         Debug.Log(GameManager.Instance.gameState);

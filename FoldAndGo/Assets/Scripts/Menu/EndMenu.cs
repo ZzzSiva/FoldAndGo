@@ -19,7 +19,6 @@ public class EndMenu : MonoBehaviour {
     }
 
     void Start () {
-        FindObjectOfType<AudioManager>().playSound("Win");
 		Button mainMenuBtn = mainMenuButton.GetComponent<Button>();
 		mainMenuBtn.onClick.AddListener(BackMainMenu);
 
@@ -33,7 +32,6 @@ public class EndMenu : MonoBehaviour {
     public void BackMainMenu(){
         GameManager.Instance.SetGameState(GameState.MAIN_MENU);
         Debug.Log(GameManager.Instance.gameState);
-        FindObjectOfType<AudioManager>().stopSound("Win");
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("MainMenu");
     }
@@ -41,7 +39,6 @@ public class EndMenu : MonoBehaviour {
     public void PlayAgain(){
         GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
         Debug.Log(GameManager.Instance.gameState);
-        FindObjectOfType<AudioManager>().stopSound("Win");
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         SceneManager.LoadScene("PlayerSelection");
     }
