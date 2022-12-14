@@ -24,6 +24,10 @@ public class PlaceOnPlane : MonoBehaviour
     [SerializeField]
     GameObject visualObject;
 
+    private float timePressed = 0.0f;
+    private float timeFirstPress = 0.0f;
+    public float timeDelayThreshold = 1.0f;
+
     /// <summary>
     /// The prefab to instantiate on touch.
     /// </summary>
@@ -50,10 +54,21 @@ public class PlaceOnPlane : MonoBehaviour
 
     bool TryGetTouchPosition(out Vector2 touchPosition)
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
             touchPosition = Input.GetTouch(0).position;
-            return true;
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            { // If the user puts her finger on screen...
+                timeFirstPress = Time.time;
+            }
+            else
+            {
+                timePressed = Time.time - timeFirstPress;
+                if (timePressed > timeDelayThreshold)
+                { // Is the time pressed greater than our time delay threshold?
+                    return true;
+                }
+            }
         }
 
         touchPosition = default;
