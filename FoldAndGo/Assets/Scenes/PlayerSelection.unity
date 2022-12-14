@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -398,9 +398,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1553805630}
-  - {fileID: 1521448676}
+  m_Children: []
   m_Father: {fileID: 1810811061}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -824,6 +822,18 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: Gamebackground
+    clip: {fileID: 8300000, guid: abcec18afa95de34abbb80e816d16414, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Win
+    clip: {fileID: 8300000, guid: 65960153d29a83e499ac64e01f086c48, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
 --- !u!4 &741428437
 Transform:
   m_ObjectHideFlags: 0
@@ -1166,6 +1176,8 @@ MonoBehaviour:
   levelOneButton: {fileID: 88082958}
   levelTwoButton: {fileID: 13857170}
   levelThreeButton: {fileID: 1230249210}
+  continueButton: {fileID: 0}
+  popupWindow: {fileID: 0}
 --- !u!1 &1230249208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1399,8 @@ MonoBehaviour:
   levelOneButton: {fileID: 88082958}
   levelTwoButton: {fileID: 13857170}
   levelThreeButton: {fileID: 1230249210}
+  continueButton: {fileID: 0}
+  popupWindow: {fileID: 94430699}
 --- !u!1 &1376096524
 GameObject:
   m_ObjectHideFlags: 0

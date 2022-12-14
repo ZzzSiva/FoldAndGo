@@ -46,19 +46,16 @@ public class PauseMenu : MonoBehaviour {
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         pauseMenuUI.SetActive(true);
         menuIconUI.SetActive(false);
-        Time.timeScale = 0f;
     }
 
     public void Resume(){
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         pauseMenuUI.SetActive(false);
         menuIconUI.SetActive(true);
-        Time.timeScale = 1f;
     }
 
 
     public void BackMainMenu(){
-        Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         GameManager.Instance.SetGameState(GameState.MAIN_MENU);
         Debug.Log(GameManager.Instance.gameState);
@@ -66,7 +63,6 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void OrigamiSelection(){
-        Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
         Debug.Log(GameManager.Instance.gameState);
