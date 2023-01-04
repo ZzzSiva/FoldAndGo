@@ -9,6 +9,7 @@ public class PaperMesh6VDog : MonoBehaviour {
     int[] triangles;
     List<Step> stepsList = new List<Step>();
     int currentStepIndex = -1;
+    int nbOfSteps = 4;
     Step step1;
     Step step2;
     Step step3;
@@ -22,6 +23,16 @@ public class PaperMesh6VDog : MonoBehaviour {
     const float ROTATION = 180f;
 
     public bool isStepInAnimation = false;
+
+    public int getCurrentStepIndex()
+    {
+        return currentStepIndex;
+    }
+
+    public int getNbOfSteps()
+    {
+        return nbOfSteps;
+    }
 
     private void Awake() {
         mesh = GetComponent<MeshFilter>().mesh;

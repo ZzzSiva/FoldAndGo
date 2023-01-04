@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 2359882108947085363}
   - component: {fileID: 2359882108947085360}
   - component: {fileID: 2359882108947085361}
-  - component: {fileID: 2359882108947085365}
   - component: {fileID: 2359882108947085364}
   m_Layer: 0
   m_Name: Paper
@@ -157,22 +156,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   animationDuration: 0.5
   isStepInAnimation: 0
---- !u!114 &2359882108947085365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359882108947085359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba8ccb057b201847ab0fe51e608972b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  minZoom: 10
-  maxZoom: 100
-  zoomSpeed: 2
 --- !u!114 &2359882108947085364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +169,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 1
+  isTouching: 0
+  timeTouchStarted: 0

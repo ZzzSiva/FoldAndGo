@@ -7,12 +7,16 @@ using UnityEngine.UI;
 public class ControlsManager : MonoBehaviour {
 
     private PaperMesh6VDog paperMesh;
+    private GameObject origamiObject;
+    private GameObject fireworks;
 
     public Button finishButton;
 
     void Awake() {
         GameManager.OnGameStateChange += HandleOnStateChange;
         tryGettingPaper();
+        tryGettingFireworks();
+        fireworks.gameObject.SetActive(false);
 
 
     }
@@ -27,18 +31,28 @@ public class ControlsManager : MonoBehaviour {
         Debug.Log("OnStateChange : " + state);
     }
 
+    private void tryGettingFireworks()
+    {
+        if (fireworks == null)
+        {
+            fireworks = GameObject.FindGameObjectWithTag("fireworks");
+
+            Debug.Log("XXXXXXXXXXXXXXXXXXX fireworks = " + fireworks);
+        }
+    }
+
     private void tryGettingPaper()
     {
         if (paperMesh == null)
         {
-            GameObject paper = GameObject.FindGameObjectWithTag("origami");
+            origamiObject = GameObject.FindGameObjectWithTag("origami");
 
-            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER = " + paper);
+            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER = " + origamiObject);
 
 
-            if (paper != null)
+            if (origamiObject != null)
             {
-                paperMesh = paper.GetComponent<PaperMesh6VDog>();
+                paperMesh = origamiObject.GetComponent<PaperMesh6VDog>();
             }
             else
             {
@@ -51,11 +65,23 @@ public class ControlsManager : MonoBehaviour {
     public void PlayNextStep() {
         tryGettingPaper();
 
+        //tryGettingFireworks();
+        //fireworks.gameObject.SetActive(false);
+
         if (paperMesh != null)
         {
             FindObjectOfType<AudioManager>().playSound("MenuBtn");
             paperMesh.nextStep();
-            finishButton.gameObject.SetActive(true);
+            int current_steps = paperMesh.getCurrentStepIndex();
+            int nbOfStpes = paperMesh.getNbOfSteps() - 1;
+            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER = " + current_steps.ToString());
+            if(current_steps == nbOfStpes)
+            {
+                finishButton.gameObject.SetActive(true);
+
+                fireworks.gameObject.SetActive(true);
+                fireworks.transform.position = origamiObject.transform.position;
+            }
         }
         
     }
@@ -63,11 +89,15 @@ public class ControlsManager : MonoBehaviour {
     public void PlayPreviousStep() {
         tryGettingPaper();
 
+
+        //tryGettingFireworks();
+
         if (paperMesh != null)
         {
             FindObjectOfType<AudioManager>().playSound("MenuBtn");
             paperMesh.previousStep();
             finishButton.gameObject.SetActive(false);
+            fireworks.gameObject.SetActive(false);
         }
         
     }
