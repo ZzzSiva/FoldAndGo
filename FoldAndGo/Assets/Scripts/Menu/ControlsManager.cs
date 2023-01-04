@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using EasyUI.Toast ;
+
 
 public class ControlsManager : MonoBehaviour {
 
@@ -26,6 +28,8 @@ public class ControlsManager : MonoBehaviour {
 		finishBtn.onClick.AddListener(EndMenu);
         finishBtn.gameObject.SetActive(false);
         FindObjectOfType<AudioManager>().playSound("GameBackground");
+        StartCoroutine(ShowHelpOrigami());
+        StartCoroutine(ShowHelpControllers());
 	}
 
     private void HandleOnStateChange(GameState state) {
@@ -110,4 +114,13 @@ public class ControlsManager : MonoBehaviour {
         Debug.Log(GameManager.Instance.gameState);
         SceneManager.LoadScene("EndMenu");
     }
+
+    IEnumerator  ShowHelpOrigami () {
+        Toast.Show ("Hold on the screen to display the origami", 4f, ToastColor.Blue, ToastPosition.BottomCenter) ;
+        yield return new WaitForSeconds(4f);
+   }
+   IEnumerator  ShowHelpControllers () {
+        Toast.Show ("Use the buttons on your right and left side to change steps", 4f, ToastColor.Blue, ToastPosition.BottomCenter) ;
+        yield return new WaitForSeconds(4f);
+   }
 }

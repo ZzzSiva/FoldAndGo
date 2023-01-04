@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using EasyUI.Toast ;
 
 
 public class PlayerSelection : MonoBehaviour{
@@ -10,9 +11,6 @@ public class PlayerSelection : MonoBehaviour{
     public Button levelOneButton;
     public Button levelTwoButton;
     public Button levelThreeButton;
-    public Button continueButton;
-
-    public GameObject popupWindow;
 
     void Awake () {
         GameManager.OnGameStateChange += HandleOnStateChange;
@@ -27,13 +25,10 @@ public class PlayerSelection : MonoBehaviour{
 		levelOne.onClick.AddListener(Play);
 
         Button levelTwo = levelTwoButton.GetComponent<Button>();
-		levelTwo.onClick.AddListener(Play);
+		levelTwo.onClick.AddListener(ShowMessage);
 
         Button levelThree = levelThreeButton.GetComponent<Button>();
-		levelThree.onClick.AddListener(Popup);
-
-        Button continueBtn = continueButton.GetComponent<Button>();
-		continueBtn.onClick.AddListener(PopupClicked);
+		levelThree.onClick.AddListener(ShowMessage);
 
         FindObjectOfType<AudioManager>().playSound("SelectionBackground");
 	}
@@ -49,16 +44,6 @@ public class PlayerSelection : MonoBehaviour{
         SceneManager.LoadScene("Game");
     }
 
-    public void Popup (){
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        popupWindow.SetActive(true);
-    }
-
-    public void PopupClicked (){
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        popupWindow.SetActive(false);
-    }
-
     public void BackGame ()
     {
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
@@ -71,4 +56,9 @@ public class PlayerSelection : MonoBehaviour{
         FindObjectOfType<AudioManager>().playSound("ExitBtn");
         Application.Quit();
     }
+
+    public void ShowMessage () {
+        FindObjectOfType<AudioManager>().playSound("MenuBtn");
+        Toast.Show ("<size=24>Will be available in the next update\n STAY  TUNED !</size>", 3f, ToastColor.Blue, ToastPosition.BottomCenter) ;
+   }
 }
