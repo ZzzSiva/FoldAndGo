@@ -33,8 +33,17 @@ public class GameManager : MonoBehaviour {
         } else {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            loadAROnce();
         }
     }
+
+    private void loadAROnce() {
+        GameObject prefab = Resources.Load("AR/AR", typeof(GameObject)) as GameObject;
+        GameObject gameObjectAR = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+        DontDestroyOnLoad(gameObjectAR);
+    }
+
 
     public void SetGameState(GameState state){
         this.gameState = state;
