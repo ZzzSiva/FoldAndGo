@@ -8,7 +8,7 @@ using EasyUI.Toast ;
 
 public class ControlsManager : MonoBehaviour {
 
-    private PaperMesh6VDog paperMesh;
+    private OrigamiPaper paperMesh;
     private GameObject origamiObject;
     private GameObject fireworks;
 
@@ -56,7 +56,7 @@ public class ControlsManager : MonoBehaviour {
 
             if (origamiObject != null)
             {
-                paperMesh = origamiObject.GetComponent<PaperMesh6VDog>();
+                paperMesh = origamiObject.GetComponent<OrigamiPaper>();
             }
             else
             {

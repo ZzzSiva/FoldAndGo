@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObjectAR);
     }
 
-
     public void SetGameState(GameState state){
         this.gameState = state;
 

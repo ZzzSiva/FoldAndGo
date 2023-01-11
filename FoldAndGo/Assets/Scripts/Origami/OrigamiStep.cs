@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Step {
+public class OrigamiStep {
     public int   number;
     public int[] pointsIndex;
     public Vector3 angle;
@@ -18,5 +18,5 @@ public class Step {
     public Vector3 flipRotation;
     public Vector3 lastRotation;
 
-    public Step() {}
+    public OrigamiStep() {}
 }
