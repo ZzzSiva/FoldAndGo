@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6556fc27ea3bc5428dabee7b0cf92cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.6
+  rotationSpeed: 0.4
   isTouching: 0
   timeTouchStarted: 0
 --- !u!114 &2654572427744894144

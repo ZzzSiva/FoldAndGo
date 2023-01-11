@@ -32,7 +32,7 @@ public class Rotate : MonoBehaviour
             Vector2 previousFingerPosition = Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition;
 
             // Calculate the difference in position
-            Vector2 fingerDelta = previousFingerPosition - fingerPosition;
+            Vector2 fingerDelta = fingerPosition - previousFingerPosition;
 
             // Rotate the object based on the finger delta and the rotation speed
             transform.Rotate(Vector3.up, fingerDelta.x * rotationSpeed);
