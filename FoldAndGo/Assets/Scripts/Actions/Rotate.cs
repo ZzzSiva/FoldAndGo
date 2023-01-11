@@ -12,7 +12,7 @@ public class Rotate : MonoBehaviour
     void Update()
     {
         // Check if the screen is being touched
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
             // Store the time when the touch started
             if (isTouching==false)
@@ -26,13 +26,13 @@ public class Rotate : MonoBehaviour
             // If the touch lasted less than a second
             if (touchDuration < 1.0f)
             {
-               Vector2 fingerPos = Input.GetTouch(0).position;
+               Vector2 fingerPosition = Input.GetTouch(0).position;
 
             // Get the previous finger position
-            Vector2 previousFingerPos = Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition;
+            Vector2 previousFingerPosition = Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition;
 
             // Calculate the difference in position
-            Vector2 fingerDelta = previousFingerPos - fingerPos;
+            Vector2 fingerDelta = previousFingerPosition - fingerPosition;
 
             // Rotate the object based on the finger delta and the rotation speed
             transform.Rotate(Vector3.up, fingerDelta.x * rotationSpeed);
