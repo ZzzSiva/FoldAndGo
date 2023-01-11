@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2359882108947085360}
   - component: {fileID: 2359882108947085361}
   - component: {fileID: 2359882108947085364}
+  - component: {fileID: 2654572427744894144}
   m_Layer: 0
   m_Name: Paper
   m_TagString: origami
@@ -163,11 +164,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359882108947085359}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6556fc27ea3bc5428dabee7b0cf92cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
+  rotationSpeed: 0.6
   isTouching: 0
   timeTouchStarted: 0
+--- !u!114 &2654572427744894144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2359882108947085359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45338910f5cb6b243902c04d0e380a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToZoom: {fileID: 2359882108947085359}
+  zoomSpeed: 0.1

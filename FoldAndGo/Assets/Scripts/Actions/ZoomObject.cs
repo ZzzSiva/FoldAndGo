@@ -31,6 +31,7 @@ public class ZoomObject : MonoBehaviour
                 objectToZoom.transform.localScale = new Vector3(objectToZoom.transform.localScale.x+zoomFactor * zoomSpeed * Time.deltaTime,
                                                                 objectToZoom.transform.localScale.y+zoomFactor * zoomSpeed * Time.deltaTime,
                                                                 objectToZoom.transform.localScale.z+zoomFactor * zoomSpeed * Time.deltaTime);
+                firstTouchPosition = touch1.position - touch2.position;
             }
         }
     }
