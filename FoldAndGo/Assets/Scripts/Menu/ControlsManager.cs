@@ -29,7 +29,6 @@ public class ControlsManager : MonoBehaviour {
         finishBtn.gameObject.SetActive(false);
         FindObjectOfType<AudioManager>().playSound("GameBackground");
         StartCoroutine(ShowHelpOrigami());
-        StartCoroutine(ShowHelpControllers());
 	}
 
     private void HandleOnStateChange(GameState state) {
@@ -118,8 +117,6 @@ public class ControlsManager : MonoBehaviour {
     IEnumerator  ShowHelpOrigami () {
         Toast.Show ("Hold on the screen to display the origami", 4f, ToastColor.Blue, ToastPosition.BottomCenter) ;
         yield return new WaitForSeconds(4f);
-   }
-   IEnumerator  ShowHelpControllers () {
         Toast.Show ("Use the buttons on your right and left side to change steps", 4f, ToastColor.Blue, ToastPosition.BottomCenter) ;
         yield return new WaitForSeconds(4f);
    }
