@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee6171d2806a408bb7383393b6386ff, type: 3}
-  m_Name: Dog
+  m_Script: {fileID: 11500000, guid: 02c942501c53e46ff85071845ca852f9, type: 3}
+  m_Name: OriDog
   m_EditorClassIdentifier: 
   vertices: []
   triangles: 
-  currentStepIndex: -1
   globalPivotOffset: {x: -0.5, y: 0, z: -0.5}
   animationCurve:
     serializedVersion: 2

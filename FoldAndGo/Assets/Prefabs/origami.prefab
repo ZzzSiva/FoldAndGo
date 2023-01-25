@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2951078469471769784}
   m_Layer: 0
-  m_Name: origami
+  m_Name: Origami
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,9 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36058fd4ba2474a3e88cdbb079193d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mesh: {fileID: 0}
   vertices: []
+  triangles: 
+  origamiData: {fileID: 11400000, guid: b066cdcda9a4041e78a835fecb978fe1, type: 2}
+  currentStepIndex: -1
   isStepInAnimation: 0
-  origamiData: {fileID: 11400000, guid: 81ef1613c1aa440e4ba869e0e58bbbd8, type: 2}
 --- !u!114 &2359882108947085364
 MonoBehaviour:
   m_ObjectHideFlags: 0

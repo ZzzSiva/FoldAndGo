@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 [CreateAssetMenu]
 public class DogOrigami : BaseOrigami {
@@ -44,7 +43,6 @@ public class DogOrigami : BaseOrigami {
 
     private void initSteps() {
         OrigamiStep step1 = new OrigamiStep();
-        step1.number = 1;
         step1.foldingPointsIndex = new int[] {
             0,  1,  2,  3,  4,  /*5,  6,  7,*/  8,  9, /*10,*/ 11, 12, /*13, 14,*/
             //15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
@@ -58,7 +56,6 @@ public class DogOrigami : BaseOrigami {
         stepsList.Add(step1);
 
         OrigamiStep step2 = new OrigamiStep();
-        step2.number = 2;
         step2.foldingPointsIndex = new int[] {
             /*0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13,*/ 14,
             15, /*16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
@@ -72,7 +69,6 @@ public class DogOrigami : BaseOrigami {
         stepsList.Add(step2);
 
         OrigamiStep step3 = new OrigamiStep();
-        step3.number = 3;
         step3.foldingPointsIndex = new int[] {
             /*0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
             15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
@@ -86,7 +82,6 @@ public class DogOrigami : BaseOrigami {
         stepsList.Add(step3);
 
         OrigamiStep step4 = new OrigamiStep();
-        step4.number = 3;
         step4.foldingPointsIndex = new int[] {
             0, /*1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
             15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,*/ 29,
