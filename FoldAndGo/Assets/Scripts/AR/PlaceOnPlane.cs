@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,8 +12,8 @@ using UnityEngine.XR.ARSubsystems;
 /// and moved to the hit position.
 /// </summary>
 [RequireComponent(typeof(ARRaycastManager))]
-public class PlaceOnPlane : MonoBehaviour
-{
+public class PlaceOnPlane : MonoBehaviour {
+
     [SerializeField]
     [Tooltip("Instantiates this prefab on a plane at the touch location.")]
     GameObject m_PlacedPrefab;
@@ -24,15 +23,14 @@ public class PlaceOnPlane : MonoBehaviour
     [SerializeField]
     GameObject visualObject;
 
-    private float timePressed = 0.0f;
-    private float timeFirstPress = 0.0f;
-    public float timeDelayThreshold = 1.0f;
+    private float timePressed        = 0.0f;
+    private float timeFirstPress     = 0.0f;
+    public float  timeDelayThreshold = 1.0f;
 
     /// <summary>
     /// The prefab to instantiate on touch.
     /// </summary>
-    public GameObject placedPrefab
-    {
+    public GameObject placedPrefab {
         get { return m_PlacedPrefab; }
         set { m_PlacedPrefab = value; }
     }
@@ -42,65 +40,55 @@ public class PlaceOnPlane : MonoBehaviour
     /// </summary>
     public GameObject spawnedObject { get; private set; }
 
-    void Awake()
-    {
+    void Awake() {
         m_RaycastManager = GetComponent<ARRaycastManager>();
 
-        if (placementUpdate == null)
-            placementUpdate = new UnityEvent();
+        if (placementUpdate == null) placementUpdate = new UnityEvent();
 
         placementUpdate.AddListener(DiableVisual);
     }
 
-    bool TryGetTouchPosition(out Vector2 touchPosition)
-    {
-        if (Input.touchCount == 1)
-        {
+    bool TryGetTouchPosition(out Vector2 touchPosition) {
+        if (Input.touchCount == 1) {
             touchPosition = Input.GetTouch(0).position;
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            { // If the user puts her finger on screen...
+
+            if(Input.GetTouch(0).phase == TouchPhase.Began) { // If the user puts her finger on screen...
                 timeFirstPress = Time.time;
-            }
-            else
-            {
+            } else {
                 timePressed = Time.time - timeFirstPress;
-                if (timePressed > timeDelayThreshold)
-                { // Is the time pressed greater than our time delay threshold?
+
+                // Is the time pressed greater than our time delay threshold ?
+                if(timePressed > timeDelayThreshold) { 
                     return true;
                 }
             }
         }
 
         touchPosition = default;
+
         return false;
     }
 
-    void Update()
-    {
-        if (!TryGetTouchPosition(out Vector2 touchPosition))
-            return;
+    void Update() {
+        if(!TryGetTouchPosition(out Vector2 touchPosition)) return;
 
-        if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
-        {
+        if(m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon)) {
             // Raycast hits are sorted by distance, so the first one
             // will be the closest hit.
             var hitPose = s_Hits[0].pose;
 
-            if (spawnedObject == null)
-            {
+            if(spawnedObject == null) {
                 spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
 
-            }
-            else
-            {
+            } else {
                 spawnedObject.transform.position = hitPose.position;
             }
+
             placementUpdate.Invoke();
         }
     }
 
-    public void DiableVisual()
-    {
+    public void DiableVisual() {
         visualObject.SetActive(false);
     }
 

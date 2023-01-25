@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using EasyUI.Toast ;
@@ -9,115 +7,101 @@ using EasyUI.Toast ;
 public class ControlsManager : MonoBehaviour {
 
     private OrigamiPaper paperMesh;
-    private GameObject origamiObject;
-    private GameObject fireworks;
+    private GameObject   origamiObject;
+    private GameObject   fireworks;
 
-    public Button finishButton;
+    public Button        finishButton;
+
+    public float         toastDuration = 2f;
+    public ToastColor    toastColor    = ToastColor.Orange;
+    public ToastPosition toastPosition = ToastPosition.BottomCenter;
 
     void Awake() {
         GameManager.OnGameStateChange += HandleOnStateChange;
+
         tryGettingPaper();
         tryGettingFireworks();
-        fireworks.gameObject.SetActive(false);
 
+        fireworks.SetActive(false);
 
-    }
-
-    void Start () {
-		Button finishBtn = finishButton.GetComponent<Button>();
-		finishBtn.onClick.AddListener(EndMenu);
-        finishBtn.gameObject.SetActive(false);
-        FindObjectOfType<AudioManager>().playSound("GameBackground");
-        StartCoroutine(ShowHelpOrigami());
-	}
-
-    private void HandleOnStateChange(GameState state) {
-        Debug.Log("OnStateChange : " + state);
-    }
-
-    private void tryGettingFireworks()
-    {
-        if (fireworks == null)
-        {
-            fireworks = GameObject.FindGameObjectWithTag("fireworks");
-
-            Debug.Log("XXXXXXXXXXXXXXXXXXX fireworks = " + fireworks);
+        if(GameManager.Instance) {
+            toastDuration = GameManager.Instance.toastDuration;
+            toastColor    = GameManager.Instance.toastColor;
+            toastPosition = GameManager.Instance.toastPosition;
         }
     }
 
-    private void tryGettingPaper()
-    {
-        if (paperMesh == null)
-        {
-            origamiObject = GameObject.FindGameObjectWithTag("origami");
+    void Start() {
+		Button finishBtn = finishButton.GetComponent<Button>();
 
-            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER = " + origamiObject);
+        if(finishBtn) {
+            finishBtn.onClick.AddListener(EndMenu);
+            finishBtn.gameObject.SetActive(false);
+        }
 
+        StartCoroutine(ShowHelpOrigami());
+	}
 
-            if (origamiObject != null)
-            {
+    private void HandleOnStateChange(GameState state) {}
+
+    private void tryGettingFireworks() {
+        if(fireworks == null) {
+            fireworks = GameObject.FindGameObjectWithTag("Fireworks");
+        }
+    }
+
+    private void tryGettingPaper() {
+        if(paperMesh == null) {
+            origamiObject = GameObject.FindGameObjectWithTag("Origami");
+
+            if(origamiObject != null) {
                 paperMesh = origamiObject.GetComponent<OrigamiPaper>();
-            }
-            else
-            {
+            } else {
                 paperMesh = null;
             }
-            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER MESH = " + paperMesh);
         }
     }
 
     public void PlayNextStep() {
         tryGettingPaper();
 
-        //tryGettingFireworks();
-        //fireworks.gameObject.SetActive(false);
-
-        if (paperMesh != null)
-        {
+        if(paperMesh != null) {
             FindObjectOfType<AudioManager>().playSound("MenuBtn");
             paperMesh.nextStep();
+
             int current_steps = paperMesh.getCurrentStepIndex();
-            int nbOfStpes = paperMesh.getNbOfSteps() - 1;
-            Debug.Log("XXXXXXXXXXXXXXXXXXX PAPER = " + current_steps.ToString());
-            if(current_steps == nbOfStpes)
-            {
+            int nbOfStpes     = paperMesh.getNbOfSteps() - 1;
+
+            if(current_steps == nbOfStpes) {
                 finishButton.gameObject.SetActive(true);
 
-                fireworks.gameObject.SetActive(true);
+                fireworks.SetActive(true);
                 fireworks.transform.position = origamiObject.transform.position;
             }
         }
-        
     }
 
     public void PlayPreviousStep() {
         tryGettingPaper();
 
-
-        //tryGettingFireworks();
-
-        if (paperMesh != null)
-        {
+        if(paperMesh != null) {
             FindObjectOfType<AudioManager>().playSound("MenuBtn");
             paperMesh.previousStep();
+
             finishButton.gameObject.SetActive(false);
-            fireworks.gameObject.SetActive(false);
+            fireworks.SetActive(false);
         }
         
     }
 
-    public void EndMenu(){
-        FindObjectOfType<AudioManager>().stopSound("GameBackground");
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        GameManager.Instance.SetGameState(GameState.END_MENU);
-        Debug.Log(GameManager.Instance.gameState);
-        SceneManager.LoadScene("EndMenu");
+    public void EndMenu() {
+        GameManager.Instance.updateGameState(GameState.END_MENU);
     }
 
-    IEnumerator  ShowHelpOrigami () {
-        Toast.Show ("Hold on the screen to display the origami", 4f, ToastColor.Blue, ToastPosition.BottomCenter) ;
-        yield return new WaitForSeconds(4f);
-        Toast.Show ("Use the buttons on your right and left side to change steps", 4f, ToastColor.Blue, ToastPosition.BottomCenter) ;
-        yield return new WaitForSeconds(4f);
+    IEnumerator ShowHelpOrigami() {
+        Toast.Show ("Hold on the screen to display the origami", toastDuration, toastColor, toastPosition) ;
+        yield return new WaitForSeconds(toastDuration);
+        Toast.Show ("Use the buttons on your right and left side to change steps", toastDuration, toastColor, toastPosition) ;
+        yield return new WaitForSeconds(toastDuration);
    }
 }

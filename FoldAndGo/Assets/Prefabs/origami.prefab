@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 2654572427744894144}
   m_Layer: 0
   m_Name: Paper
-  m_TagString: origami
+  m_TagString: Origami
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +133,8 @@ MonoBehaviour:
   mesh: {fileID: 0}
   vertices: []
   triangles: 
+  origamiDogData: {fileID: 11400000, guid: b066cdcda9a4041e78a835fecb978fe1, type: 2}
+  origamiBoatData: {fileID: 11400000, guid: 66b619ba7a74b4360829633837a268c5, type: 2}
   origamiData: {fileID: 11400000, guid: b066cdcda9a4041e78a835fecb978fe1, type: 2}
   currentStepIndex: -1
   isStepInAnimation: 0
@@ -145,12 +147,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2359882108947085359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6556fc27ea3bc5428dabee7b0cf92cc, type: 3}
+  m_Script: {fileID: 11500000, guid: f2b62a457c0cb4225999284f159199bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.4
-  isTouching: 0
+  rotationSpeed: 0.1
   timeTouchStarted: 0
+  isTouching: 0
 --- !u!114 &2654572427744894144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2359882108947085359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45338910f5cb6b243902c04d0e380a13, type: 3}
+  m_Script: {fileID: 11500000, guid: d9b3ceec20ab44c6d93faee65bb97de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectToZoom: {fileID: 2359882108947085359}

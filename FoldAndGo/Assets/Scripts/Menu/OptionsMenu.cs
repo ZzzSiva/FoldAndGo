@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 
 public class OptionsMenu : MonoBehaviour {
 
@@ -16,53 +12,38 @@ public class OptionsMenu : MonoBehaviour {
         GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    private void HandleOnStateChange(GameState state) {
-        Debug.Log("OnStateChange : " + state);
-    }
+    private void HandleOnStateChange(GameState state) {}
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Button backBtn = backButton.GetComponent<Button>();
-		backBtn.onClick.AddListener(BackMainMenu);
-
+    void Start() {
+        Button backBtn  = backButton.GetComponent<Button>();
         Button leaveBtn = leaveButton.GetComponent<Button>();
-		leaveBtn.onClick.AddListener(Quit);
 
-        if (!PlayerPrefs.HasKey("musicVolume"))
-        {
-            PlayerPrefs.SetFloat("musicVolume", 1);
-            LoadVolume();
-        }else{
-            LoadVolume();
-        }
-        
+        if(backBtn)  backBtn.onClick.AddListener(BackMainMenu);
+        if(leaveBtn) leaveBtn.onClick.AddListener(Quit);
+
+        LoadVolume();
     }
 
-
-    public void ChangeVolume(){
+    public void ChangeVolume() {
         AudioListener.volume = volumeSlider.value;
         SaveVolume();
     }
 
-    private void LoadVolume(){
+    private void LoadVolume() {
         volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
     }
 
-    private void SaveVolume(){
+    private void SaveVolume() {
         PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
     }
 
-    public void BackMainMenu(){
-        GameManager.Instance.SetGameState(GameState.MAIN_MENU);
-        Debug.Log(GameManager.Instance.gameState);
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        SceneManager.LoadScene("MainMenu");
+    public void BackMainMenu() {
+        GameManager.Instance.updateGameState(GameState.MAIN_MENU);
     }
 
-    public void Quit(){
-        Debug.Log("Quit!");
-        FindObjectOfType<AudioManager>().playSound("ExitBtn");
-        Application.Quit();
+    public void Quit() {
+        GameManager.Instance.updateGameState(GameState.QUIT);
+
     }
 }

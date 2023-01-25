@@ -7,10 +7,14 @@ public class OrigamiPaper : MonoBehaviour {
     public Vector3[]   vertices;
     public int[]       triangles;
 
+    public BaseOrigami origamiDogData;
+    public BaseOrigami origamiBoatData;
     public BaseOrigami origamiData;
 
     public int         currentStepIndex  = -1;
     public bool        isStepInAnimation = false;
+
+    private string     stepPref;
 
     public int getCurrentStepIndex() {
         return currentStepIndex;
@@ -22,16 +26,27 @@ public class OrigamiPaper : MonoBehaviour {
 
     private void Awake() {
         mesh = GetComponent<MeshFilter>().mesh;
+
+        if(GameManager.Instance.gameLevel == GameLevel.LEVEL_1) {
+            origamiData = origamiDogData;
+            stepPref = "level1Step";
+        } else if(GameManager.Instance.gameLevel == GameLevel.LEVEL_2) {
+            origamiData = origamiBoatData;
+            stepPref = "level2Step";
+        } else {
+            origamiData = origamiDogData;
+            stepPref = "level3Step";
+        }
     }
 
     private void Start() {
         initMeshData();
         updateMesh();
+        goToSavedStep();
     }
 
     private void Update() {
         // For TESTING : allow live vertex modification in inspector
-
         if(!isStepInAnimation) {
             if(Input.GetKeyDown(KeyCode.LeftArrow)) {
                 if(currentStepIndex >= 0) {
@@ -57,6 +72,17 @@ public class OrigamiPaper : MonoBehaviour {
 
         vertices  = combineVertices(origamiData.defaultHalfVerticesPart, symetricVerticesPart);
         triangles = multiplyTriangles(origamiData.defaultHalfTrianglesPart, 2);
+    }
+
+    private void goToSavedStep() {
+        int stepToGo;
+
+        stepToGo = PlayerPrefs.GetInt(stepPref);
+
+        while(currentStepIndex < stepToGo) {
+            currentStepIndex++;
+            StartCoroutine(doAnimatedFold(origamiData.stepsList[currentStepIndex], 0f));
+        }
     }
 
     private void updateMesh() {
@@ -133,7 +159,7 @@ public class OrigamiPaper : MonoBehaviour {
         return foldingPoint - foldingMiddlePoint;
     }
 
-    IEnumerator doAnimatedFold(OrigamiStep step, float duration, bool reverse = false) {
+    IEnumerator doAnimatedFold(OrigamiStep step, float duration, bool reverse = false, bool animate = true) {
         isStepInAnimation = true;
 
         int revert = (reverse) ? -1 : 1;
@@ -144,10 +170,10 @@ public class OrigamiPaper : MonoBehaviour {
 
             if(!step.needPerpendicularCalculation) {
                 pivot = calculateFoldingMiddlePoint(step.foldingPointsAxeIndex[0], step.foldingPointsAxeIndex[1]);
-                axis = calculateAxis(step.foldingPointsAxeIndex[0], pivot);
+                axis  = calculateAxis(step.foldingPointsAxeIndex[0], pivot);
             } else {
                 pivot = vertices[step.foldingPointsAxeIndex[0]];
-                axis = calculateAxis(step.perpendicularVector, pivot);
+                axis  = calculateAxis(step.perpendicularVector, pivot);
             }
 
             float time = 0f;
@@ -168,7 +194,7 @@ public class OrigamiPaper : MonoBehaviour {
 
                 updateMesh();
 
-                yield return null;
+                if(animate) yield return null;
             }
 
             float lastRotation = step.foldingRotation - totalRotation;
@@ -193,7 +219,7 @@ public class OrigamiPaper : MonoBehaviour {
 
             for(float t = 0 ; t < duration ; t += Time.deltaTime) {
                 transform.rotation = Quaternion.Slerp(startRotation, endRotation, t / duration);
-                yield return null;
+                if(animate) yield return null;
             }
 
             transform.rotation = endRotation;
@@ -201,13 +227,22 @@ public class OrigamiPaper : MonoBehaviour {
 
 
         isStepInAnimation = false;
+
+        if(!animate) yield return null;
     }
 
     public void nextStep() {
         if(currentStepIndex < (origamiData.stepsList.Count - 1) && !isStepInAnimation) {
             if(currentStepIndex >= -1) {
                 currentStepIndex++;
+
                 StartCoroutine(doAnimatedFold(origamiData.stepsList[currentStepIndex], origamiData.animationDuration));
+
+                if(currentStepIndex == (origamiData.stepsList.Count - 1)) {
+                    PlayerPrefs.SetInt(stepPref, -1);
+                } else {
+                    PlayerPrefs.SetInt(stepPref, currentStepIndex);
+                }
             }
         }
     }
@@ -216,6 +251,8 @@ public class OrigamiPaper : MonoBehaviour {
         if(currentStepIndex >= 0 && !isStepInAnimation) {
             StartCoroutine(doAnimatedFold(origamiData.stepsList[currentStepIndex], origamiData.animationDuration, true));
             currentStepIndex--;
+
+            PlayerPrefs.SetInt(stepPref, currentStepIndex);
         }
     }
 

@@ -19,8 +19,7 @@ public class AudioManager : MonoBehaviour {
         }
 
         foreach(Sound sound in sounds) {
-            sound.source = gameObject.AddComponent<AudioSource>();
-
+            sound.source        = gameObject.AddComponent<AudioSource>();
             sound.source.clip   = sound.clip;
             sound.source.volume = sound.volume;
             sound.source.pitch  = sound.pitch;
@@ -32,7 +31,7 @@ public class AudioManager : MonoBehaviour {
         Sound sound = Array.Find(sounds, sound => sound.name == name);
 
         if(sound == null) {
-            Debug.LogWarning("Sound: " + name + "not found !");
+            Debug.LogWarning("Sound: " + name + " not found !");
             return;
         }
 
@@ -43,10 +42,27 @@ public class AudioManager : MonoBehaviour {
         Sound sound = Array.Find(sounds, sound => sound.name == name);
 
         if(sound == null) {
-            Debug.LogWarning("Sound: " + name + "not found !");
+            Debug.LogWarning("Sound: " + name + " not found !");
             return;
         }
 
         sound.source.Stop();
+    }
+
+    public void changeBackgroundSound(string name) {
+        bool needPlay = true;
+
+        foreach(Sound sound in sounds) {
+            if(sound.source.isPlaying &&
+                (sound.name == "MainBackground" || sound.name == "SelectionBackground" || sound.name == "GameBackground" || sound.name == "WinBackground")) {
+                if(sound.name == name) {
+                    needPlay = false;
+                } else {
+                    sound.source.Stop();
+                }
+            }
+        }
+
+        if(needPlay) playSound(name);
     }
 }

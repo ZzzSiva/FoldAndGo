@@ -1,77 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
 
-    public Button pauseButton;
-    public Button mainMenuButton;
-    public Button selectionButton;
-    public Button leaveButton;
-    public Button backButton;
-
+    public Button     pauseButton;
+    public Button     mainMenuButton;
+    public Button     selectionButton;
+    public Button     leaveButton;
+    public Button     backButton;
     public GameObject pauseMenuUI;
     public GameObject menuIconUI;
+    public GameObject pauseMenuBackground;
 
     void Awake() {
         GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    private void HandleOnStateChange(GameState state) {
-        Debug.Log("OnStateChange : " + state);
-    }
+    private void HandleOnStateChange(GameState state) {}
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Button pauseBtn = pauseButton.GetComponent<Button>();
-		pauseBtn.onClick.AddListener(Pause);
-
-        Button backBtn = backButton.GetComponent<Button>();
-		backBtn.onClick.AddListener(Resume);
-
-        Button mainMenuBtn = mainMenuButton.GetComponent<Button>();
-		mainMenuBtn.onClick.AddListener(BackMainMenu);
-
+    void Start() {
+        Button pauseBtn     = pauseButton.GetComponent<Button>();
+        Button backBtn      = backButton.GetComponent<Button>();
+        Button mainMenuBtn  = mainMenuButton.GetComponent<Button>();
         Button selectionBtn = selectionButton.GetComponent<Button>();
-		selectionBtn.onClick.AddListener(OrigamiSelection);
+        Button leaveBtn     = leaveButton.GetComponent<Button>();
 
-        Button leaveBtn = leaveButton.GetComponent<Button>();
-		leaveBtn.onClick.AddListener(Quit);
+        if(pauseBtn)     pauseBtn.onClick.AddListener(Pause);
+        if(backBtn)      backBtn.onClick.AddListener(Resume);
+        if(mainMenuBtn)  mainMenuBtn.onClick.AddListener(BackMainMenu);
+        if(selectionBtn) selectionBtn.onClick.AddListener(OrigamiSelection);
+        if(leaveBtn)     leaveBtn.onClick.AddListener(Quit);
     }
 
-    public void Pause(){
+    public void Pause() {
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         pauseMenuUI.SetActive(true);
+        pauseMenuBackground.SetActive(true);
         menuIconUI.SetActive(false);
     }
 
-    public void Resume(){
+    public void Resume() {
         FindObjectOfType<AudioManager>().playSound("MenuBtn");
         pauseMenuUI.SetActive(false);
+        pauseMenuBackground.SetActive(false);
         menuIconUI.SetActive(true);
     }
 
-
-    public void BackMainMenu(){
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        GameManager.Instance.SetGameState(GameState.MAIN_MENU);
-        Debug.Log(GameManager.Instance.gameState);
-        SceneManager.LoadScene("MainMenu");
+    public void BackMainMenu() {
+        GameManager.Instance.updateGameState(GameState.MAIN_MENU);
     }
 
-    public void OrigamiSelection(){
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
-        Debug.Log(GameManager.Instance.gameState);
-        SceneManager.LoadScene("PlayerSelection");
+    public void OrigamiSelection() {
+        GameManager.Instance.updateGameState(GameState.ORIGAMI_SELECTION);
     }
 
-    public void Quit(){
-        FindObjectOfType<AudioManager>().playSound("ExitBtn");
-        Debug.Log("Quit!");
-        Application.Quit();
+    public void Quit() {
+        GameManager.Instance.updateGameState(GameState.QUIT);
     }
 }

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 
 public class MainMenu : MonoBehaviour {
 
@@ -11,46 +8,31 @@ public class MainMenu : MonoBehaviour {
     public Button optionsButton;
     public Button leaveButton;
 
-    void Awake () {
+    void Awake() {
         GameManager.OnGameStateChange += HandleOnStateChange;
     }
 
-    private void HandleOnStateChange(GameState state) {
-        Debug.Log("OnStateChange : " + state);
-    }
+    private void HandleOnStateChange(GameState state) {}
 
-    void Start () {
-		Button playBtn = playButton.GetComponent<Button>();
-		playBtn.onClick.AddListener(PlayGame);
-
+    void Start() {
+		Button playBtn    = playButton.GetComponent<Button>();
         Button optionsBtn = optionsButton.GetComponent<Button>();
-		optionsBtn.onClick.AddListener(OptionsMenu);
+        Button leaveBtn   = leaveButton.GetComponent<Button>();
 
-        Button leaveBtn = leaveButton.GetComponent<Button>();
-		leaveBtn.onClick.AddListener(QuitGame);
-
-        FindObjectOfType<AudioManager>().playSound("MainBackground");
+        if(playBtn)    playBtn.onClick.AddListener(PlayGame);
+        if(optionsBtn) optionsBtn.onClick.AddListener(OptionsMenu);
+        if(leaveBtn)   leaveBtn.onClick.AddListener(QuitGame);
 	}
 
-    public void PlayGame ()
-    {
-        GameManager.Instance.SetGameState(GameState.PLAYER_SELECTION);
-        Debug.Log(GameManager.Instance.gameState);
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        FindObjectOfType<AudioManager>().stopSound("MainBackground");
-        SceneManager.LoadScene("PlayerSelection");
+    public void PlayGame() {
+        GameManager.Instance.updateGameState(GameState.ORIGAMI_SELECTION);
     }
 
-    public void OptionsMenu(){
-        GameManager.Instance.SetGameState(GameState.OPTIONS_MENU);
-        Debug.Log(GameManager.Instance.gameState);
-        FindObjectOfType<AudioManager>().playSound("MenuBtn");
-        SceneManager.LoadScene("OptionsMenu");
+    public void OptionsMenu() {
+        GameManager.Instance.updateGameState(GameState.OPTIONS_MENU);
     }
 
-    public void QuitGame() 
-    {
-        FindObjectOfType<AudioManager>().playSound("ExitBtn");
-        Application.Quit();
+    public void QuitGame() {
+        GameManager.Instance.updateGameState(GameState.QUIT);
     }
 }

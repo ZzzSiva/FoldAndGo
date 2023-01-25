@@ -4884,7 +4884,7 @@ GameObject:
   - component: {fileID: 4207392504228118621}
   m_Layer: 0
   m_Name: Fireworks
-  m_TagString: fireworks
+  m_TagString: Fireworks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4988,8 +4988,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 2
+      minScalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
